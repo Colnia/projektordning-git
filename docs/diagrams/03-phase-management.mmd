@@ -1,0 +1,18 @@
+stateDiagram-v2
+    [*] --> ViewPhases
+    ViewPhases --> AddPhase: Klicka "Lägg till fas"
+    ViewPhases --> EditPhase: Klicka på fas
+    
+    AddPhase --> CreatePhaseDialog: Öppna dialog
+    CreatePhaseDialog --> SetPhaseDetails: Fyll i information
+    SetPhaseDetails --> AssignResources: Lägg till resurser
+    AssignResources --> SavePhase: Spara ändringar
+    SavePhase --> UpdateDatabase: API-anrop
+    UpdateDatabase --> RefreshView: Uppdatera UI
+    RefreshView --> ViewPhases
+    
+    EditPhase --> EditPhaseDialog: Öppna dialog
+    EditPhaseDialog --> ModifyPhaseDetails: Ändra information
+    ModifyPhaseDetails --> ModifyResources: Hantera resurser
+    ModifyResources --> SaveChanges: Spara ändringar
+    SaveChanges --> UpdateDatabase: API-anrop 

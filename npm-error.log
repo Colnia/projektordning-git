@@ -1,0 +1,15 @@
+﻿
+> my-v0-project@0.1.0 dev
+> next dev
+
+   Ôû▓ Next.js 15.1.0
+   - Local:        http://localhost:3002
+   - Network:      http://192.168.1.135:3002
+   - Experiments (use with caution):
+     ┬À webpackBuildWorker
+     ┬À parallelServerCompiles
+     ┬À parallelServerBuildTraces
+
+ Ô£ô Starting...
+ Ô£ô Ready in 1660ms
+[?25h

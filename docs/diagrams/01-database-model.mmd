@@ -1,0 +1,55 @@
+erDiagram
+    Project ||--o{ Phase : has
+    Project ||--o{ Assignment : has
+    Project ||--o{ MaterialDelivery : has
+    Project ||--o{ ProjectDependency : has
+    Project ||--o{ ResourceAssignment : has
+    
+    Phase ||--o{ Assignment : has
+    Phase ||--o{ MaterialDelivery : has
+    Phase ||--o{ PhaseDependency : has
+    Phase ||--o{ ResourceAssignment : has
+    
+    Resource ||--o{ Assignment : assigned_to
+    Resource ||--o{ Skill : has
+    Resource ||--o{ AvailabilityException : has
+    Resource ||--o{ ResourceAssignment : has
+    
+    Project {
+        string id PK
+        string name
+        string customer
+        string manager
+        datetime startDate
+        datetime plannedEndDate
+        datetime actualEndDate
+        string status
+        float budget
+        float costToDate
+        float estimatedTotalCost
+        string milestones
+        string comments
+        boolean isArchived
+    }
+    
+    Phase {
+        string id PK
+        string name
+        string description
+        string projectId FK
+        datetime startDate
+        datetime endDate
+        float completionRate
+        string color
+        string status
+    }
+    
+    Resource {
+        string id PK
+        string name
+        string type
+        string email
+        string phone
+        float costRate
+        float capacity
+    } 

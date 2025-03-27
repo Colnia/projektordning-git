@@ -1,0 +1,20 @@
+flowchart TD
+    subgraph ErrorHandling
+        Error{Fel uppstår}
+        Error -->|Fas finns inte| CreateNewPhase
+        Error -->|Foreign Key| CheckReferences
+        Error -->|Databasfel| RetryOperation
+        
+        CreateNewPhase --> ValidateData
+        CheckReferences --> UpdateReferences
+        RetryOperation --> MaxRetries{Max försök?}
+        
+        MaxRetries -->|Ja| NotifyUser
+        MaxRetries -->|Nej| RetryOperation
+    end
+    
+    subgraph StatusUpdates
+        ValidateData --> UpdateStatus
+        UpdateStatus --> NotifyUI
+        NotifyUI --> RefreshView
+    end 

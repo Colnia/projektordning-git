@@ -1,0 +1,22 @@
+flowchart LR
+    subgraph TimelineCalculation
+        Start --> CalculateDateRange
+        CalculateDateRange --> GenerateMonths
+        GenerateMonths --> GenerateDays
+        GenerateDays --> CalculatePositions
+    end
+    
+    subgraph BarRendering
+        CalculatePositions --> DetermineBarWidth
+        DetermineBarWidth --> SetBarPosition
+        SetBarPosition --> RenderBar
+        RenderBar --> ApplyStatus
+        ApplyStatus --> ShowLabel
+    end
+    
+    subgraph StatusHandling
+        ApplyStatus --> NotStarted
+        ApplyStatus --> InProgress
+        ApplyStatus --> Completed
+        ApplyStatus --> Delayed
+    end 

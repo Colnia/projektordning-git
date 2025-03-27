@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant U as Användare
+    participant UI as GanttView
+    participant API as API Routes
+    participant DB as Database
+    
+    U->>UI: Öppna fas
+    UI->>API: Hämta fasdetaljer
+    API->>DB: Query fas & resurser
+    DB-->>API: Fasdata & resurser
+    API-->>UI: Visa fasdetaljer
+    
+    U->>UI: Lägg till resurs
+    UI->>UI: Öppna resursval
+    U->>UI: Välj resurs
+    UI->>UI: Ange timmar/dag
+    U->>UI: Spara resurstilldelning
+    UI->>API: Skapa tilldelning
+    API->>DB: Spara tilldelning
+    DB-->>API: Bekräftelse
+    API-->>UI: Uppdatera vy 
