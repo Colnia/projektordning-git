@@ -49,11 +49,9 @@ export const useProjectStore = create<ProjectStore>()(
           const projectsData = await projectsResponse.json();
           console.log('Hämtade projekt från API:', projectsData);
           
-          const projectsList = projectsData.projects || [];
-          
           // Uppdatera store med projektdata från databasen
           set({
-            projects: projectsList,
+            projects: projectsData,
             isLoading: false,
             hasInitialized: true
           });

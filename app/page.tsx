@@ -5,7 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Overview } from "./overview"
 import { ProjectsTable } from "./projects-table"
 import { QuotesTable } from "./quotes-table"
-import { ArchivedItemsTable } from "./archived-items-table"
+import { ArchivedProjectsList } from "./archived/archived-projects-list"
+import { ArchivedQuotesList } from "./archived/archived-quotes-list"
 import { useProjectStore } from "@/lib/store"
 import { Header } from "@/components/header"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
@@ -175,7 +176,20 @@ export default function DashboardPage() {
                       <QuotesTable />
                     </TabsContent>
                     <TabsContent value="archived" className="space-y-4">
-                      <ArchivedItemsTable />
+                      <div className="space-y-6">
+                        <Tabs defaultValue="projects" className="space-y-4">
+                          <TabsList>
+                            <TabsTrigger value="projects">Arkiverade Projekt ({archivedProjects.length})</TabsTrigger>
+                            <TabsTrigger value="quotes">Arkiverade Offerter ({archivedQuotes.length})</TabsTrigger>
+                          </TabsList>
+                          <TabsContent value="projects">
+                            <ArchivedProjectsList searchTerm="" />
+                          </TabsContent>
+                          <TabsContent value="quotes">
+                            <ArchivedQuotesList searchTerm="" />
+                          </TabsContent>
+                        </Tabs>
+                      </div>
                     </TabsContent>
                   </Tabs>
                 </CardContent>
