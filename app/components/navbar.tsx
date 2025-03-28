@@ -1,83 +1,116 @@
 "use client"
 
-import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Briefcase, LayoutDashboard, BarChart3, Settings, Menu, CalendarRange, Home, FolderClosed, FileText, BarChart } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { LayoutDashboard, FolderClosed, FileText, BarChart, Users, Settings } from "lucide-react"
 
 export function Navbar() {
   const pathname = usePathname()
-  
-  // Navigationsalternativ
-  const navItems = [
-    { name: 'Översikt', href: '/', icon: <Home className="w-4 h-4" /> },
-    { name: 'Projekt', href: '/projects', icon: <FolderClosed className="w-4 h-4" /> },
-    { name: 'Offerter', href: '/quotes', icon: <FileText className="w-4 h-4" /> },
-    { name: 'Gantt-schema', href: '/gantt', icon: <BarChart className="w-4 h-4" /> },
-    { name: 'Avancerad Gantt', href: '/gantt-aktuell', icon: <CalendarRange className="w-4 h-4" /> },
-    { name: 'Inställningar', href: '/settings', icon: <Settings className="w-4 h-4" /> }
-  ];
+
+  const managementNavItems = [
+    {
+      title: "Översikt",
+      href: "/",
+      icon: <LayoutDashboard className="w-4 h-4" />,
+    },
+    {
+      title: "Projekt",
+      href: "/planning",
+      icon: <FolderClosed className="w-4 h-4" />,
+    },
+    {
+      title: "Offerter",
+      href: "/project",
+      icon: <FileText className="w-4 h-4" />,
+    },
+  ]
+
+  const planningNavItems = [
+    {
+      title: "Resurser",
+      href: "/reports/resources",
+      icon: <Users className="w-4 h-4" />,
+    },
+    {
+      title: "Statistik",
+      href: "/reports/stats",
+      icon: <BarChart className="w-4 h-4" />,
+    },
+  ]
 
   return (
-    <div className="border-b">
-      <div className="flex h-16 items-center px-4 md:px-8">
-        <div className="hidden items-center space-x-4 md:flex">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold">ProjektOrdning</span>
-          </Link>
+    <div className="group flex w-56 flex-col gap-4 border-e py-6">
+      <div className="px-2">
+        <Link
+          href="/"
+          className="flex items-center gap-2 px-2 py-1"
+        >
+          <div className="rounded bg-primary p-1 text-primary-foreground">
+            <LayoutDashboard className="h-5 w-5" />
+          </div>
+          <div className="text-xl font-semibold tracking-tight">
+            ProjektOrdning
+          </div>
+        </Link>
+      </div>
+      
+      <div className="grid gap-1 px-2">
+        <div className="text-xs uppercase text-muted-foreground px-2 py-2 border-b">
+          Projekthantering
         </div>
         
-        <Sheet>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="outline" size="icon" className="ml-2">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Meny</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-            <nav className="flex flex-col gap-4 mt-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground",
-                    pathname === item.href ? "bg-accent text-accent-foreground" : "transparent"
-                  )}
-                >
-                  {item.icon}
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
-
-        <div className="hidden md:flex md:flex-1 md:justify-center">
-          <nav className="flex items-center space-x-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground"
-                )}
-              >
-                {item.icon}
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+        {managementNavItems.map((item) => (
+          <Button
+            key={item.href}
+            variant={pathname === item.href ? "secondary" : "ghost"}
+            className={cn(
+              "justify-start gap-2",
+              pathname === item.href && "bg-muted"
+            )}
+            asChild
+          >
+            <Link href={item.href}>
+              {item.icon}
+              {item.title}
+            </Link>
+          </Button>
+        ))}
+        
+        <div className="text-xs uppercase text-muted-foreground px-2 py-2 mt-4 border-b">
+          Rapporter
         </div>
-
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <div className="flex items-center space-x-2">
-            {/* Användarikon eller profilmeny kan läggas till här */}
-          </div>
-        </div>
+        
+        {planningNavItems.map((item) => (
+          <Button
+            key={item.href}
+            variant={pathname === item.href ? "secondary" : "ghost"}
+            className={cn(
+              "justify-start gap-2",
+              pathname === item.href && "bg-muted"
+            )}
+            asChild
+          >
+            <Link href={item.href}>
+              {item.icon}
+              {item.title}
+            </Link>
+          </Button>
+        ))}
+      </div>
+      
+      <div className="mt-auto grid gap-1 px-2">
+        <Button
+          variant="ghost"
+          className="justify-start gap-2"
+          asChild
+        >
+          <Link href="/settings">
+            <Settings className="w-4 h-4" />
+            Inställningar
+          </Link>
+        </Button>
       </div>
     </div>
   )
